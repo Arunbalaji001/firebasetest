@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "317197598145",
+    "firebase_url": "https://videocall-81655.firebaseio.com",
+    "project_id": "videocall-81655",
+    "storage_bucket": "videocall-81655.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317197598145:android:6c972c0aa2ac74186fc340",
+        "android_client_info": {
+          "package_name": "com.arunbalaji.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317197598145-cv0qk3r07jgjfhcl6dpcdb9k52a2b9eu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arunbalaji.firebasetest",
+            "certificate_hash": "fc74cb7b2f52fa0e1841701b3b35409e4b56e749"
+          }
+        },
+        {
+          "client_id": "317197598145-645lfr762pol715rkjb55to5j19mmsu6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcQXr-bXTzBAWjGPTy3f0YvnFVYQaB9Ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317197598145-645lfr762pol715rkjb55to5j19mmsu6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "317197598145-ett8lroj1dupeiq2s7ktg4vlofq00ijc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.arunbalaji.fir"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
