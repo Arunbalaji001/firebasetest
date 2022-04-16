@@ -6,8 +6,9 @@ class elementx{
   String description='';
   String imageurl='';
 
-  elementx({required this.title, required this.description, required this.imageurl});
 
+  elementx({required this.title, required this.description, required this.imageurl});
+  elementx.empty();
   elementx.fromJson(Map<String,dynamic> json){
    title=json['title'];
    description=json['description'];

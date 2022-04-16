@@ -68,25 +68,9 @@ class _loginwidgetState extends State<loginwidget> {
             Consumer<appprovider>(
               builder: (context,model,child){
                 if(model.xpz==loginstate.loggedin)
-                  {
-                      Future.delayed(Duration.zero,(){
-                        Navigator.of(context).pushNamed('home');
-                      });
-
-                  }
-                if(model.xt==vrfystate.completed){
-                  Fluttertoast.showToast(msg: 'Verification Completed');
+                {
                   Future.delayed(Duration.zero,(){
-                    Navigator.of(context).pushNamed('home');
-                  });
-                }
-                if(model.xt==vrfystate.codesent){
-                      Fluttertoast.showToast(msg: 'OTP has been sent');
-                }
-                if(model.xt==vrfystate.codetimeout){
-                  Fluttertoast.showToast(msg: 'Automatic OTP detection failed, please enter the otp in the next screen');
-                  Future.delayed(Duration.zero,(){
-                    Navigator.pushNamed(context, 'verify');
+                    Navigator.of(context).pushReplacementNamed('home');
                   });
                 }
                 return  InkWell(
@@ -108,6 +92,9 @@ class _loginwidgetState extends State<loginwidget> {
                     if(phnctrlr.value.text.length==10)
                     {
                       Provider.of<appprovider>(context,listen: false).verifyphonenum(number: phnctrlr.value.text);
+                      Future.delayed(Duration.zero,(){
+                        Navigator.of(context).pushReplacementNamed('verify');
+                      });
                     }
                   },
                 );

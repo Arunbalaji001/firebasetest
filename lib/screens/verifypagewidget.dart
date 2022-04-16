@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -25,7 +26,55 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
       padding: EdgeInsets.symmetric(horizontal: 40),
     child:
         Consumer<appprovider>(builder: (context,model,child){
-          if(model.xt==vrfystate.codesent||model.xt==vrfystate.codetimeout){
+
+
+          if(model.xt==vrfystate.codesent){
+            return Container(
+                alignment: Alignment.center,
+                child:
+                Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child:
+                        Text('Verify your Phone',
+                          style: GoogleFonts.roboto(
+                              fontSize: 24,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      SizedBox(height:12),
+                      Container(
+
+                        constraints: BoxConstraints(maxHeight: 150),
+                        child:
+                        OTPTextField(
+                          // controller: otpController,
+                            length: 6,
+                            width: MediaQuery.of(context).size.width-80,
+                            textFieldAlignment: MainAxisAlignment.spaceAround,
+                            fieldWidth: (MediaQuery.of(context).size.width-80)/7,
+                            fieldStyle: FieldStyle.box,
+                            outlineBorderRadius: 15,
+                            style: TextStyle(fontSize: 17),
+                            onChanged: (pin) {
+                              print("Changed: " + pin);
+                            },
+                            onCompleted: (pin) async {
+                              print("Completed: " + pin);
+                              await Provider.of<appprovider>(context,listen: false).signinx(code: pin);
+                            }),
+                      ),
+
+                    ]));
+          }
+          else if(model.xt==vrfystate.codetimeout){
+            Fluttertoast.showToast(msg: 'Unable to detect and read otp automatically, Kindly enter otp code');
             return Container(
                 alignment: Alignment.center,
                 child:
@@ -71,7 +120,7 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                     ]));
           }
           else if(model.xt==vrfystate.completed){
-                Future.delayed(Duration(seconds:2),()=>Navigator.of(context).pushNamed('home'));
+                Future.delayed(Duration(seconds:2),()=>Navigator.of(context).pushReplacementNamed('home'));
             return Container(
                 alignment: Alignment.center,
                 child:
@@ -100,9 +149,24 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                       Text('Failed - Verification failed.'),
                       SizedBox(height: 24,),
                       TextButton(onPressed: (){
-                        Navigator.of(context).pushNamed('login');
+                        Navigator.of(context).pushReplacementNamed('login');
                       }, child: Text('RETRY'),)
                     ]));
+          }
+         else if(model.xt==vrfystate.loading){
+           Fluttertoast.showToast(msg: 'Sending OTP...');
+           return Container(
+             child: Center(
+               child: SizedBox(
+                 height: 24,
+                 width: 24,
+                 child: CircularProgressIndicator(
+                   color: Colors.indigo,
+                   strokeWidth: 1.5,
+                 ),
+               ),
+             ),
+           );
           }
           else {
 
@@ -119,7 +183,9 @@ class _VerifyPageWidgetState extends State<VerifyPageWidget> {
                       Text('Error - Something went wrong.'),
                       SizedBox(height: 24,),
                       TextButton(onPressed: (){
-                        Navigator.of(context).pushNamed('login');
+                        Provider.of<appprovider>(context,listen: false).xt=vrfystate.initial;
+                        Provider.of<appprovider>(context,listen: false).notifyListeners();
+                        Navigator.of(context).pushReplacementNamed('login');
                       }, child: Text('RETRY'),)
                     ]));
           }

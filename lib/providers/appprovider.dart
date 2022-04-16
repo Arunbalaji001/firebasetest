@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:localstorage/localstorage.dart';
 
+import '../models/elementx.dart';
+
 enum vrfystate{initial,loading,codesent,codetimeout,verifyfailed,completed}
 enum loginstate{initial,loading,loggedin,notloggedin}
 class appprovider extends ChangeNotifier{
@@ -10,6 +12,7 @@ class appprovider extends ChangeNotifier{
   var verfyID='';
   loginstate xpz=loginstate.initial;
   String userid='';
+  elementx tempval=elementx.empty();
 
   final LocalStorage storage =  LocalStorage('firebasetest');
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -17,6 +20,12 @@ class appprovider extends ChangeNotifier{
   appprovider()  {
     getuser();
   }
+
+  void settempval(elementx xt){
+    tempval=xt;
+    notifyListeners();
+  }
+  elementx gettempval()=>tempval;
 
   Future<void> verifyphonenum({required String number}) async{
 
